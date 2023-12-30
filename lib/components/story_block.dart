@@ -26,7 +26,7 @@ class StoryBlock extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                image: DecorationImage(image: NetworkImage(image))),
+                image: DecorationImage(image: AssetImage(image))),
             child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(

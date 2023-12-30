@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
+  dotted_border: ^2.1.0
   flutter:
     sdk: flutter
 
@@ -20,3 +21,9 @@ flutter:
 
   assets:
     - assets/Emblem_ACVI_Handler_Walter.webp
+    - assets/You.jpg
+    - assets/Bonnie.jpg
+    - assets/Eric.jpg
+    - assets/Ida.jpg
+    - assets/Jordan.jpg
+    - assets/Tracey.jpg
