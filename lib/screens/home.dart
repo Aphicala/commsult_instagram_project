@@ -35,40 +35,43 @@ class _homeScreenState extends State<homeScreen> {
     ];
 
     return Scaffold(
-      appBar: topBar(context),
-      bottomNavigationBar: NavigationBar(
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.house), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.search), label: 'Explore'),
-          NavigationDestination(icon: Icon(Icons.add_box), label: 'Post'),
-          NavigationDestination(icon: Icon(Icons.movie), label: 'Reels'),
-          NavigationDestination(icon: Icon(Icons.circle), label: 'Profile'),
-        ],
-        selectedIndex: currentPageIndex,
-      ),
-      body: <Widget>[
-        /// Homepage
-        homeContent(stories),
+        appBar: topBar(context),
+        bottomNavigationBar: NavigationBar(
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          destinations: const <Widget>[
+            NavigationDestination(icon: Icon(Icons.house), label: 'Home'),
+            NavigationDestination(icon: Icon(Icons.search), label: 'Explore'),
+            NavigationDestination(icon: Icon(Icons.add_box), label: 'Post'),
+            NavigationDestination(icon: Icon(Icons.movie), label: 'Reels'),
+            NavigationDestination(icon: Icon(Icons.circle), label: 'Profile'),
+          ],
+          selectedIndex: currentPageIndex,
+        ),
+        body: ListView(
+          children: [
+            <Widget>[
+              /// Homepage
+              homeContent(stories),
 
-        /// Explore
-        Explore(),
+              /// Explore
+              Explore(),
 
-        /// Post
-        Post(),
+              /// Post
+              Post(),
 
-        /// Reels
-        Reel(),
+              /// Reels
+              Reel(),
 
-        /// Profile
-        Profile(),
-      ][currentPageIndex],
-    );
+              /// Profile
+              Profile(),
+            ][currentPageIndex],
+          ],
+        ));
   }
 
   Column homeContent(List<Story> stories) {
@@ -90,20 +93,132 @@ class _homeScreenState extends State<homeScreen> {
               separatorBuilder: separatorBuilder,
               itemCount: stories.length),
         )),
-        Card(
-          child: ListTile(
-            leading: Icon(Icons.notifications_sharp),
-            title: Text('Notification 1'),
-            subtitle: Text('This is a notification'),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 16,
+                      backgroundImage: NetworkImage(
+                          'https://images.unsplash.com/photo-1682687220509-61b8a906ca19?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                    ),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'username',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    )),
+                    IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                    child: ListView(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16),
+                                      shrinkWrap: true,
+                                      children: [
+                                        'Delete',
+                                        'Report',
+                                        'Block',
+                                      ]
+                                          .map((e) => InkWell(
+                                                onTap: () {},
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 12,
+                                                      horizontal: 16),
+                                                  child: Text(e),
+                                                ),
+                                              ))
+                                          .toList(),
+                                    ),
+                                  ));
+                        },
+                        icon: const Icon(Icons.more_vert))
+                  ],
+                ),
+              ),
+              // Image Section
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.4,
+                width: double.infinity,
+                child: Image.network(
+                    'https://images.unsplash.com/photo-1703803828769-36c110f2d4e1?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+              ),
+
+              // Like Comment
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.comment_outlined,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.send,
+                      )),
+                  Expanded(
+                      child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: IconButton(
+                        onPressed: () {}, icon: Icon(Icons.bookmark_border)),
+                  ))
+                ],
+              ),
+
+              // Comments
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('1,834 Likes'),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.only(top: 8),
+                      child: RichText(
+                          text: TextSpan(
+                        children: [
+                          TextSpan(
+                              text: 'username',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(
+                            text:
+                                'Placeholder description this is an example sentence',
+                          ),
+                        ],
+                      )),
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
-        ),
-        Card(
-          child: ListTile(
-            leading: Icon(Icons.notifications_sharp),
-            title: Text('Notification 2'),
-            subtitle: Text('This is a notification'),
-          ),
-        ),
+        )
       ],
     );
   }
