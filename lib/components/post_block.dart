@@ -1,3 +1,4 @@
+import 'package:bootleg_instagram/components/expanding_caption_block.dart';
 import 'package:flutter/material.dart';
 
 class PostBlock extends StatelessWidget {
@@ -80,7 +81,7 @@ class PostBlock extends StatelessWidget {
           child: Image.network(image),
         ),
 
-        // Like Comment
+        // Like
         Row(
           children: [
             IconButton(
@@ -108,29 +109,48 @@ class PostBlock extends StatelessWidget {
           ],
         ),
 
-        // Comments
+        // Description + Comments
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(likes),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.only(top: 8),
-                child: RichText(
-                    text: TextSpan(
-                  children: [
-                    TextSpan(
-                        text: username,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(
-                      text: description,
-                    ),
-                  ],
-                )),
-              ),
+              Text("$likes likes"),
+              Flexible(
+                  fit: FlexFit.loose,
+                  child: Row(
+                    children: [
+                      ExpandingCaption(content: description, username: username)
+
+                      // Getting Closer
+                      // Expanded(
+                      //     child: ExpandingCaption(
+                      //         content: description, username: username))
+
+                      // This is the closest to the layout of Instagram without expanding caption
+                      // Expanded(
+                      //     child: Text.rich(TextSpan(
+                      //         style: TextStyle(fontWeight: FontWeight.bold),
+                      //         text: username,
+                      //         children: [
+                      //       TextSpan(
+                      //           text: description,
+                      //           style: TextStyle(fontWeight: FontWeight.normal))
+                      //     ])))
+                    ],
+                    // children: [Expanded(child: Text(username + description))],
+                  )),
+              // Container(
+              //   width: double.infinity,
+              //   padding: const EdgeInsets.only(top: 8),
+              //   child: Row(
+              //     children: [
+              //       RichText(text: TextSpan(text: username)),
+              //       ExpandingCaption(content: description)
+              //     ],
+              //   ),
+              // ),
               InkWell(
                 onTap: () {},
                 child: Container(
