@@ -17,9 +17,13 @@ class homeScreen extends StatefulWidget {
 
 class _homeScreenState extends State<homeScreen> {
   int currentPageIndex = 0;
+  ScrollController controller = ScrollController();
+  bool closeTopContainer = false;
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     List<Story> stories = [
       // Story('https://randomuser.me/api/portraits/men/98.jpg', 'You'),
       // Story('https://randomuser.me/api/portraits/men/18.jpg', 'Eric'),
@@ -29,6 +33,12 @@ class _homeScreenState extends State<homeScreen> {
       // Story('https://randomuser.me/api/portraits/women/23.jpg', 'Tracey'),
 
       Story('assets/You.jpg', 'You'),
+      Story('assets/Eric.jpg', 'Eric'),
+      Story('assets/Ida.jpg', 'Ida'),
+      Story('assets/Bonnie.jpg', 'Bonnie'),
+      Story('assets/Jordan.jpg', 'Jordan'),
+      Story('assets/Tracey.jpg', 'Tracey'),
+      Story('assets/You.jpg', 'Not me'),
       Story('assets/Eric.jpg', 'Eric'),
       Story('assets/Ida.jpg', 'Ida'),
       Story('assets/Bonnie.jpg', 'Bonnie'),
@@ -90,7 +100,7 @@ class _homeScreenState extends State<homeScreen> {
     ];
 
     return Scaffold(
-      appBar: topBar(context),
+      // appBar: topBar(context),
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         onDestinationSelected: (int index) {
@@ -107,27 +117,103 @@ class _homeScreenState extends State<homeScreen> {
         ],
         selectedIndex: currentPageIndex,
       ),
-      body:
-
-          // old one
-          // SingleChildScrollView(
-          //   child: Column(
-          //     mainAxisSize: MainAxisSize.min,
-          SingleChildScrollView(
-              child: WidgetOptions.elementAt(currentPageIndex)),
+      body: Container(
+        height: size.height,
+        child: NestedScrollView(
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                title: const Text(
+                  'Instagram',
+                  style: TextStyle(color: Colors.black),
+                ),
+                floating: true,
+                forceElevated: innerBoxIsScrolled,
+                backgroundColor: Colors.white,
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('This is notifications')));
+                      },
+                      icon: const Icon(
+                        Icons.favorite_outline,
+                        color: Colors.black,
+                      )),
+                  IconButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('This is direct messages')));
+                      },
+                      icon: const Icon(
+                        Icons.message_outlined,
+                        color: Colors.black,
+                      ))
+                ],
+              )
+            ];
+          },
+          body: Container(child: WidgetOptions.elementAt(currentPageIndex)),
+        ),
+      ),
+      // body: Container(
+      //   child: WidgetOptions.elementAt(currentPageIndex),
+      // )
+      // SingleChildScrollView(
+      //         child: WidgetOptions.elementAt(currentPageIndex)),
     );
   }
 
   Widget homeContent(List<Story> stories, List<Post> posts) {
+    final Size size = MediaQuery.of(context).size;
+    final double storiesHeight = size.height * 0.15;
+
     return Column(
-      children: [storyContent(stories), feed(posts)],
+      children: [
+        AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            width: size.width,
+            alignment: Alignment.topCenter,
+            height: closeTopContainer ? 0 : storiesHeight,
+            child: storyContent(stories)),
+        feed(posts),
+        // DraggableScrollableSheet(
+        //   builder: (BuildContext context, ScrollController scrollController) {
+        //     return Container(
+        //       color: Colors.blue[200],
+        //       child: ListView.builder(
+        //         controller: scrollController,
+        //         itemCount: 25,
+        //         itemBuilder: (BuildContext context, int index) {
+        //           return ListTile(title: Text('Item $index'));
+        //         },
+        //       ),
+        //     );
+        //   },
+        // ),
+      ],
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      setState(() {
+        closeTopContainer = controller.offset > 50;
+      });
+    });
+  }
+
   Widget storyContent(List<Story> stories) {
+    final double storiesHeight = MediaQuery.of(context).size.height * 0.15;
+
     return SafeArea(
-        child: SizedBox(
-      height: 100,
+        child: Container(
+      height: storiesHeight,
       child: ListView.separated(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           scrollDirection: Axis.horizontal,
@@ -135,8 +221,12 @@ class _homeScreenState extends State<homeScreen> {
           itemBuilder: ((context, index) {
             var story = stories[index];
 
-            return StoryBlock(
-                index: index, image: story.image, name: story.name);
+            return FittedBox(
+              fit: BoxFit.fill,
+              alignment: Alignment.topCenter,
+              child: StoryBlock(
+                  index: index, image: story.image, name: story.name),
+            );
           }),
           separatorBuilder: separatorBuilder,
           itemCount: stories.length),
@@ -144,10 +234,10 @@ class _homeScreenState extends State<homeScreen> {
   }
 
   Widget feed(List<Post> posts) {
-    return SizedBox(
-        height: 550,
+    return Expanded(
         child: ListView.separated(
-            shrinkWrap: false,
+            // shrinkWrap: false,
+            controller: controller,
             scrollDirection: Axis.vertical,
             itemBuilder: ((context, index) {
               var post = posts[index];
@@ -162,6 +252,25 @@ class _homeScreenState extends State<homeScreen> {
             }),
             separatorBuilder: separatorBuilder2,
             itemCount: posts.length));
+
+    // SizedBox(
+    //     height: 550,
+    //     child: ListView.separated(
+    //         shrinkWrap: false,
+    //         scrollDirection: Axis.vertical,
+    //         itemBuilder: ((context, index) {
+    //           var post = posts[index];
+
+    //           return PostBlock(
+    //               index: index,
+    //               image: post.image,
+    //               username: post.username,
+    //               date: post.date,
+    //               likes: post.likes,
+    //               description: post.description);
+    //         }),
+    //         separatorBuilder: separatorBuilder2,
+    //         itemCount: posts.length));
   }
 
   AppBar topBar(BuildContext context) {
