@@ -151,11 +151,6 @@ class _homeScreenState extends State<homeScreen> {
           body: Container(child: WidgetOptions.elementAt(currentPageIndex)),
         ),
       ),
-      // body: Container(
-      //   child: WidgetOptions.elementAt(currentPageIndex),
-      // )
-      // SingleChildScrollView(
-      //         child: WidgetOptions.elementAt(currentPageIndex)),
     );
   }
 
@@ -172,20 +167,6 @@ class _homeScreenState extends State<homeScreen> {
             height: closeTopContainer ? 0 : storiesHeight,
             child: storyContent(stories)),
         feed(posts),
-        // DraggableScrollableSheet(
-        //   builder: (BuildContext context, ScrollController scrollController) {
-        //     return Container(
-        //       color: Colors.blue[200],
-        //       child: ListView.builder(
-        //         controller: scrollController,
-        //         itemCount: 25,
-        //         itemBuilder: (BuildContext context, int index) {
-        //           return ListTile(title: Text('Item $index'));
-        //         },
-        //       ),
-        //     );
-        //   },
-        // ),
       ],
     );
   }
@@ -244,25 +225,6 @@ class _homeScreenState extends State<homeScreen> {
             }),
             separatorBuilder: separatorBuilder2,
             itemCount: posts.length));
-
-    // SizedBox(
-    //     height: 550,
-    //     child: ListView.separated(
-    //         shrinkWrap: false,
-    //         scrollDirection: Axis.vertical,
-    //         itemBuilder: ((context, index) {
-    //           var post = posts[index];
-
-    //           return PostBlock(
-    //               index: index,
-    //               image: post.image,
-    //               username: post.username,
-    //               date: post.date,
-    //               likes: post.likes,
-    //               description: post.description);
-    //         }),
-    //         separatorBuilder: separatorBuilder2,
-    //         itemCount: posts.length));
   }
 
   AppBar topBar(BuildContext context) {

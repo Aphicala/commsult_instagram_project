@@ -92,7 +92,10 @@ class PostBlock extends StatelessWidget {
                   color: Colors.red,
                 )),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Click the \'Show 10 comments \' ')));
+                },
                 icon: Icon(
                   Icons.comment_outlined,
                 )),
@@ -123,35 +126,8 @@ class PostBlock extends StatelessWidget {
                   child: Row(
                     children: [
                       ExpandingCaption(content: description, username: username)
-
-                      // Getting Closer
-                      // Expanded(
-                      //     child: ExpandingCaption(
-                      //         content: description, username: username))
-
-                      // This is the closest to the layout of Instagram without expanding caption
-                      // Expanded(
-                      //     child: Text.rich(TextSpan(
-                      //         style: TextStyle(fontWeight: FontWeight.bold),
-                      //         text: username,
-                      //         children: [
-                      //       TextSpan(
-                      //           text: description,
-                      //           style: TextStyle(fontWeight: FontWeight.normal))
-                      //     ])))
                     ],
-                    // children: [Expanded(child: Text(username + description))],
                   )),
-              // Container(
-              //   width: double.infinity,
-              //   padding: const EdgeInsets.only(top: 8),
-              //   child: Row(
-              //     children: [
-              //       RichText(text: TextSpan(text: username)),
-              //       ExpandingCaption(content: description)
-              //     ],
-              //   ),
-              // ),
               InkWell(
                 onTap: () {
                   showModalBottomSheet(
