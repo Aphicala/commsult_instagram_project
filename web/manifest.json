@@ -1,6 +1,6 @@
 {
-    "name": "bootleg_instagram",
-    "short_name": "bootleg_instagram",
+    "name": "bootleg_instagram_reboot",
+    "short_name": "bootleg_instagram_reboot",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "bootleg_instagram" "\0"
+            VALUE "FileDescription", "bootleg_instagram_reboot" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "bootleg_instagram" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "bootleg_instagram.exe" "\0"
-            VALUE "ProductName", "bootleg_instagram" "\0"
+            VALUE "InternalName", "bootleg_instagram_reboot" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "bootleg_instagram_reboot.exe" "\0"
+            VALUE "ProductName", "bootleg_instagram_reboot" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

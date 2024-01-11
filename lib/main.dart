@@ -1,4 +1,3 @@
-import 'package:bootleg_instagram/screens/home.dart';
 import 'package:bootleg_instagram/screens/splashscreen.dart';
 import 'package:flutter/material.dart';
 
