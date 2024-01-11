@@ -1,3 +1,4 @@
+import 'package:bootleg_instagram/components/comments_block.dart';
 import 'package:bootleg_instagram/components/expanding_caption_block.dart';
 import 'package:flutter/material.dart';
 
@@ -152,7 +153,22 @@ class PostBlock extends StatelessWidget {
               //   ),
               // ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      useSafeArea: true,
+                      builder: (BuildContext context) {
+                        return DodgeKeyboard(
+                            child: DraggableScrollableSheet(
+                                expand: false,
+                                builder: (BuildContext context,
+                                    ScrollController controller) {
+                                  return CommentsDraggable(
+                                      scrollController: controller);
+                                }));
+                      });
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 2),
                   child: Text(

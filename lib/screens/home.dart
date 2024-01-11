@@ -25,13 +25,6 @@ class _homeScreenState extends State<homeScreen> {
     final Size size = MediaQuery.of(context).size;
 
     List<Story> stories = [
-      // Story('https://randomuser.me/api/portraits/men/98.jpg', 'You'),
-      // Story('https://randomuser.me/api/portraits/men/18.jpg', 'Eric'),
-      // Story('https://randomuser.me/api/portraits/women/67.jpg', 'Ida'),
-      // Story('https://randomuser.me/api/portraits/women/93.jpg', 'Bonnie'),
-      // Story('https://randomuser.me/api/portraits/men/33.jpg', 'Jordan'),
-      // Story('https://randomuser.me/api/portraits/women/23.jpg', 'Tracey'),
-
       Story('assets/You.jpg', 'You'),
       Story('assets/Eric.jpg', 'Eric'),
       Story('assets/Ida.jpg', 'Ida'),
@@ -100,7 +93,6 @@ class _homeScreenState extends State<homeScreen> {
     ];
 
     return Scaffold(
-      // appBar: topBar(context),
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         onDestinationSelected: (int index) {
