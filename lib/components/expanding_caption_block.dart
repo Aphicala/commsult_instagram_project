@@ -6,7 +6,6 @@ class ExpandingCaption extends StatefulWidget {
 
   ExpandingCaption({super.key, required this.content, required this.username});
 
-  // ValueNotifier<bool> expanded = ValueNotifier(false);
   final int maxLinesToShow = 1;
 
   @override
@@ -62,30 +61,5 @@ class _ExpandingCaptionState extends State<ExpandingCaption> {
                           )),
                     ))
                   ])));
-
-    // Expanded(
-    //     child: secondHalf.length == ""
-    //         ? Text(widget.content)
-    //         : Flexible(
-    //             fit: FlexFit.loose,
-    //             child: Row(
-    //               children: [
-    //                 Text(flag ? firstHalf : widget.content),
-    //                 SizedBox(
-    //                   height: 5,
-    //                 ),
-    //                 InkWell(
-    //                     onTap: () {
-    //                       setState(() {
-    //                         flag = !flag;
-    //                       });
-    //                     },
-    //                     child: Text("Show more",
-    //                         style: TextStyle(
-    //                           color: Colors.grey[600],
-    //                         )))
-    //               ],
-    //             ),
-    //           ));
   }
 }

@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomComments extends StatelessWidget {
-  // final String image;
-  // final String username;
-  // final String comment;
-
   const CustomComments({
     super.key,
-    // required this.image,
-    // required this.username,
-    // required this.comment\
   });
 
   @override
@@ -100,33 +93,12 @@ class _CommentsDraggableState extends State<CommentsDraggable> {
                   child: ListView.separated(
                     itemBuilder: (BuildContext context, int index) {
                       return CustomComments();
-                      //   return ListTile(
-                      //     leading: CircleAvatar(
-                      //       backgroundImage: AssetImage('assets/You.jpg'),
-                      //     ),
-                      //     title: Text(index.toString()),
-                      //   );
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return const Divider();
                     },
                     itemCount: 100,
                   ),
-
-                  // child: ListView.separated(
-                  //   itemBuilder: (BuildContext context, int index) {
-                  //     return ListTile(
-                  //       leading: CircleAvatar(
-                  //         backgroundImage: AssetImage('assets/You.jpg'),
-                  //       ),
-                  //       title: Text(index.toString()),
-                  //     );
-                  //   },
-                  //   separatorBuilder: (BuildContext context, int index) {
-                  //     return const Divider();
-                  //   },
-                  //   itemCount: 100,
-                  // ),
                 ),
                 const Divider(),
                 Row(
@@ -163,24 +135,6 @@ class _CommentsDraggableState extends State<CommentsDraggable> {
         ),
       );
     });
-
-    // SizedBox(
-    //   height: 620,
-    //   child: DraggableScrollableSheet(
-    //     builder: (BuildContext context, ScrollController scrollController) {
-    //       return Container(
-    //         color: Colors.blue[200],
-    //         child: ListView.builder(
-    //           controller: scrollController,
-    //           itemCount: 25,
-    //           itemBuilder: (BuildContext context, int index) {
-    //             return ListTile(title: Text('Item $index'));
-    //           },
-    //         ),
-    //       );
-    //     },
-    //   ),
-    // );
   }
 }
 
